@@ -1,7 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
 import Webcam from "react-webcam";
+import { motion } from "framer-motion";
 
 const filters = ["none", "brightness(1.2)", "sepia(1)", "grayscale(1)", "contrast(0.8)", "saturate(0.8)"];
 
@@ -52,7 +51,7 @@ export default function PhotoBooth() {
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           <h1 className="text-3xl font-bold">Convenient Photobooth</h1>
           <p>Wherever you are, capture your moments.</p>
-          <Button onClick={() => setStep(2)}>Start</Button>
+          <button onClick={() => setStep(2)} className="bg-blue-500 text-white px-4 py-2 rounded">Start</button>
         </motion.div>
       )}
 
@@ -60,7 +59,7 @@ export default function PhotoBooth() {
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           <h2 className="text-2xl font-bold">How It Works</h2>
           <p>You'll take 4 photos with a 5-second interval. You can retake once.</p>
-          <Button onClick={() => setStep(3)}>Proceed</Button>
+          <button onClick={() => setStep(3)} className="bg-blue-500 text-white px-4 py-2 rounded">Proceed</button>
         </motion.div>
       )}
 
@@ -69,11 +68,11 @@ export default function PhotoBooth() {
           <Webcam ref={webcamRef} screenshotFormat="image/png" videoConstraints={{ facingMode: "user" }} className="border p-2" style={{ filter }} />
           <div className="flex gap-2 mt-2">
             {filters.map((f, index) => (
-              <Button key={index} onClick={() => setFilter(f)}>{f.replace("(1)", "")}</Button>
+              <button key={index} onClick={() => setFilter(f)} className="bg-gray-300 px-3 py-1 rounded">{f.replace("(1)", "")}</button>
             ))}
           </div>
           {countdown !== null && <p className="text-xl font-bold">{countdown}</p>}
-          <Button onClick={startCapture}>Start Capture</Button>
+          <button onClick={startCapture} className="bg-green-500 text-white px-4 py-2 rounded">Start Capture</button>
         </motion.div>
       )}
     </div>
