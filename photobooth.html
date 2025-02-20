@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import Webcam from "react-webcam";
@@ -11,6 +11,12 @@ export default function PhotoBooth() {
   const [filter, setFilter] = useState("none");
   const [countdown, setCountdown] = useState(null);
   const webcamRef = useRef(null);
+
+  useEffect(() => {
+    navigator.mediaDevices.getUserMedia({ video: true }).catch(() => {
+      alert("Camera access is required for the photobooth to function.");
+    });
+  }, []);
 
   const capturePhoto = useCallback(() => {
     if (webcamRef.current) {
@@ -116,11 +122,4 @@ export default function PhotoBooth() {
       )}
     </div>
   );
-}
-
-// Netlify Redirects Fix
-if (typeof window !== "undefined") {
-  if (window.location.pathname !== "/") {
-    window.history.replaceState(null, "", "/");
-  }
 }
