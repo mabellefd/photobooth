@@ -117,3 +117,10 @@ export default function PhotoBooth() {
     </div>
   );
 }
+
+// Netlify Redirects Fix
+if (typeof window !== "undefined") {
+  if (window.location.pathname !== "/") {
+    window.history.replaceState(null, "", "/");
+  }
+}
