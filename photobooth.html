@@ -27,17 +27,11 @@ export default function PhotoBooth() {
   const startCapture = async () => {
     setPhotos([]);
     for (let i = 4; i > 0; i--) {
-      setCountdown(5);
+      setCountdown(i);
       await new Promise((resolve) => {
-        let timer = 5;
-        const interval = setInterval(() => {
-          setCountdown((prev) => prev - 1);
-          timer--;
-          if (timer === 0) {
-            clearInterval(interval);
-            capturePhoto();
-            resolve();
-          }
+        setTimeout(() => {
+          capturePhoto();
+          resolve();
         }, 1000);
       });
     }
@@ -73,6 +67,18 @@ export default function PhotoBooth() {
           </div>
           {countdown !== null && <p className="text-xl font-bold">{countdown}</p>}
           <button onClick={startCapture} className="bg-green-500 text-white px-4 py-2 rounded">Start Capture</button>
+        </motion.div>
+      )}
+
+      {step === 4 && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+          <h2 className="text-2xl font-bold">Your Photos</h2>
+          <div className="grid grid-cols-2 gap-4 mt-4">
+            {photos.map((photo, index) => (
+              <img key={index} src={photo} alt={`Photo ${index + 1}`} className="border p-2" />
+            ))}
+          </div>
+          <button onClick={() => setStep(1)} className="bg-blue-500 text-white px-4 py-2 rounded mt-4">Restart</button>
         </motion.div>
       )}
     </div>
